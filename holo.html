@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>???</title>
+		<style>
+			body {
+				background-color: #f2f2f2;
+				font-family: Courier New, Courier, monospace;
+				text-align: center;
+				font-weight: bold;
+				font-size: 20px;
+			}
+			.container {
+				display: inline-block;
+				width: 300px;
+				margin: 50px auto;
+			}
+			.container-wrapper {
+				text-align: center;
+			}
+			#seed_input, .who_input {
+				width: 200px;
+				padding: 8px;
+				font-size: 16px;
+			}
+			#submit_button {
+				padding: 8px 15px;
+				font-size: 16px;
+			}
+			.error {
+				color: red;
+			}
+			.right {
+				color: green;
+			}
+		</style>
+	</head>
+	
+	<body>
+	
+		<div class="container">
+			<p>Seed:</p>
+			<input type="text" id="seed_input">
+			<br/>
+			<br/>
+			<button id="submit_button">Submit</button>
+			<br/>
+			<p id="result"></p>
+		</div>
+
+		<script>
+			var images = ['assets/holo/amelia_watson_ame.png', 'assets/holo/ceres_fauna.png', 'assets/holo/fuwawa_abyssgard.png', 'assets/holo/hakos_baelz_bae.png', 'assets/holo/kiara_takanashi_kiwawa.png', 'assets/holo/koseki_bijou_biboo.png', 'assets/holo/mococo_abyssgard.png', 'assets/holo/nanashi_mumei.png', 'assets/holo/nerissa_ravencroft.png', 'assets/holo/ninomae_inanis_ina.png', 'assets/holo/ouro_kronii.png', 'assets/holo/shiori_novella.png', 'assets/holo/tsukumo_sana.png'];
+			
+			function sample_three(list) {
+			
+				var temp_copy = list.slice();
+				var sampled_elements = [];
+
+				for (var i = 0; i < 3; i++) {
+					var randomIndex = Math.floor(Math.random() * temp_copy.length);
+					var sampled_element = temp_copy.splice(randomIndex, 1)[0];
+					sampled_elements.push(sampled_element);
+				}
+
+				return sampled_elements;
+			}
+			
+			document.getElementById('submit_button').addEventListener('click', function() {
+				var input = document.getElementById('seed_input').value;
+				var result = document.getElementById('result');
+				
+				if (!isNaN(input) && input >= 0 && input <= 999) {
+				
+				
+				
+					// seed answer
+					var seed_answer = input * 174177914 % 999
+					seed_answer = seed_answer.toString();
+					while (seed_answer.length < 3) {
+						seed_answer = "0" + seed_answer;
+					}
+					
+					// delete old container
+					var container = document.querySelector('.container');
+					container.innerHTML = ''; 
+					
+					var sampled_three = sample_three(images)
+					
+					
+					
+					// create new container 1
+					var PH2_CONTAINER_1 = document.createElement('div');
+					PH2_CONTAINER_1.classList.add('container');
+					
+						var PH2_IMAGE_1 = document.createElement('img');
+						PH2_IMAGE_1.src = sampled_three[0];
+						PH2_IMAGE_1.width = 240;
+						PH2_CONTAINER_1.appendChild(PH2_IMAGE_1);
+						
+						var PH2_QUESTION_1 = document.createElement('p');
+						PH2_QUESTION_1.textContent = 'Who is this?';
+						PH2_CONTAINER_1.appendChild(PH2_QUESTION_1);
+						
+						var PH2_INPUT_1 = document.createElement('input');
+						PH2_INPUT_1.type = 'text';
+						PH2_INPUT_1.id = 'who_input_1';
+						PH2_INPUT_1.classList.add('who_input');
+						PH2_CONTAINER_1.appendChild(PH2_INPUT_1);
+						
+						PH2_CONTAINER_1.appendChild(document.createElement('br'));
+						PH2_CONTAINER_1.appendChild(document.createElement('br'));
+						
+						var PH2_BUTTON_1 = document.createElement('button');
+						PH2_BUTTON_1.id = 'submit_button';
+						PH2_BUTTON_1.textContent = 'Submit';
+						PH2_CONTAINER_1.appendChild(PH2_BUTTON_1);
+						
+						var PH2_RESULT_1 = document.createElement('p');
+						PH2_RESULT_1.innerHTML = '&nbsp;';
+						PH2_RESULT_1.id = 'who_result_1';
+						PH2_CONTAINER_1.appendChild(PH2_RESULT_1);
+					
+					// Add event listener for the new submit button
+					PH2_BUTTON_1.addEventListener('click', function() {
+						var inputTextValue = document.getElementById('who_input_1').value;
+						var PH2_RESULT_1 = document.getElementById('who_result_1');
+						var image_name_list = sampled_three[0].split("/").pop().split(".")[0].split("_");
+						
+						if (image_name_list.includes(inputTextValue.toLowerCase())) {
+							PH2_RESULT_1.textContent = 'Correct! ('+seed_answer[0]+')';	
+							PH2_RESULT_1.classList.add('right');
+							PH2_RESULT_1.classList.remove('error');
+						} else {
+							PH2_RESULT_1.textContent = 'Wrong!';
+							PH2_RESULT_1.classList.add('error');
+							PH2_RESULT_1.classList.remove('right');
+						}
+					});
+			
+			
+			
+					// create new container 2
+					var PH2_CONTAINER_2 = document.createElement('div');
+					PH2_CONTAINER_2.classList.add('container');
+					
+						var PH2_IMAGE_2 = document.createElement('img');
+						PH2_IMAGE_2.src = sampled_three[1];
+						PH2_IMAGE_2.width = 240;
+						PH2_CONTAINER_2.appendChild(PH2_IMAGE_2);
+						
+						var PH2_QUESTION_2 = document.createElement('p');
+						PH2_QUESTION_2.textContent = 'Who is this?';
+						PH2_CONTAINER_2.appendChild(PH2_QUESTION_2);
+						
+						var PH2_INPUT_2 = document.createElement('input');
+						PH2_INPUT_2.type = 'text';
+						PH2_INPUT_2.id = 'who_input_2';
+						PH2_INPUT_2.classList.add('who_input');
+						PH2_CONTAINER_2.appendChild(PH2_INPUT_2);
+						
+						PH2_CONTAINER_2.appendChild(document.createElement('br'));
+						PH2_CONTAINER_2.appendChild(document.createElement('br'));
+						
+						var PH2_BUTTON_2 = document.createElement('button');
+						PH2_BUTTON_2.id = 'submit_button';
+						PH2_BUTTON_2.textContent = 'Submit';
+						PH2_CONTAINER_2.appendChild(PH2_BUTTON_2);
+						
+						var PH2_RESULT_2 = document.createElement('p');
+						PH2_RESULT_2.innerHTML = '&nbsp;';
+						PH2_RESULT_2.id = 'who_result_2';
+						PH2_CONTAINER_2.appendChild(PH2_RESULT_2);
+
+					// Add event listener for the new submit button
+					PH2_BUTTON_2.addEventListener('click', function() {
+						var inputTextValue = document.getElementById('who_input_2').value;
+						var PH2_RESULT_2 = document.getElementById('who_result_2');
+						var image_name_list = sampled_three[1].split("/").pop().split(".")[0].split("_");
+						
+						if (image_name_list.includes(inputTextValue.toLowerCase())) {
+							PH2_RESULT_2.textContent = 'Correct! ('+seed_answer[1]+')';							
+							PH2_RESULT_2.classList.add('right');
+							PH2_RESULT_2.classList.remove('error');
+						} else {
+							PH2_RESULT_2.textContent = 'Wrong!';
+							PH2_RESULT_2.classList.add('error');
+							PH2_RESULT_2.classList.remove('right');
+						}
+					});
+					
+					
+					
+					// create new container 3
+					var PH2_CONTAINER_3 = document.createElement('div');
+					PH2_CONTAINER_3.classList.add('container');
+					
+						var PH2_IMAGE_3 = document.createElement('img');
+						PH2_IMAGE_3.src = sampled_three[2];
+						PH2_IMAGE_3.width = 240;
+						PH2_CONTAINER_3.appendChild(PH2_IMAGE_3);
+						
+						var PH2_QUESTION_3 = document.createElement('p');
+						PH2_QUESTION_3.textContent = 'Who is this?';
+						PH2_CONTAINER_3.appendChild(PH2_QUESTION_3);
+						
+						var PH2_INPUT_3 = document.createElement('input');
+						PH2_INPUT_3.type = 'text';
+						PH2_INPUT_3.id = 'who_input_3';
+						PH2_INPUT_3.classList.add('who_input');
+						PH2_CONTAINER_3.appendChild(PH2_INPUT_3);
+						
+						PH2_CONTAINER_3.appendChild(document.createElement('br'));
+						PH2_CONTAINER_3.appendChild(document.createElement('br'));
+						
+						var PH2_BUTTON_3 = document.createElement('button');
+						PH2_BUTTON_3.id = 'submit_button';
+						PH2_BUTTON_3.textContent = 'Submit';
+						PH2_CONTAINER_3.appendChild(PH2_BUTTON_3);
+						
+						var PH2_RESULT_3 = document.createElement('p');
+						PH2_RESULT_3.innerHTML = '&nbsp;';
+						PH2_RESULT_3.id = 'who_result_3';
+						PH2_CONTAINER_3.appendChild(PH2_RESULT_3);
+
+					// Add event listener for the new submit button
+					PH2_BUTTON_3.addEventListener('click', function() {
+						var inputTextValue = document.getElementById('who_input_3').value;
+						var PH2_RESULT_3 = document.getElementById('who_result_3');
+						var image_name_list = sampled_three[2].split("/").pop().split(".")[0].split("_");
+						
+						if (image_name_list.includes(inputTextValue.toLowerCase())) {
+							PH2_RESULT_3.textContent = 'Correct! ('+seed_answer[2]+')';	
+							PH2_RESULT_3.classList.add('right');
+							PH2_RESULT_3.classList.remove('error');
+						} else {
+							PH2_RESULT_3.textContent = 'Wrong!';
+							PH2_RESULT_3.classList.add('error');
+							PH2_RESULT_3.classList.remove('right');
+						}
+					});
+			
+			
+			
+					// container wrapper
+					var container_wrapper = document.createElement('div');
+					container_wrapper.classList.add('container-wrapper');
+					container_wrapper.appendChild(PH2_CONTAINER_1);
+					container_wrapper.appendChild(PH2_CONTAINER_2);
+					container_wrapper.appendChild(PH2_CONTAINER_3);
+					
+					var wrong_seed = document.createElement('p');
+					wrong_seed.textContent = 'Refresh the page if you think you typed the wrong seed.';
+					document.body.appendChild(wrong_seed);
+					document.body.appendChild(container_wrapper);
+					
+					
+					
+				} else {
+					result.textContent = "Invalid input";
+					result.classList.add('error');
+				}
+			});
+		</script>
+		
+	</body>
+	
+</html>
