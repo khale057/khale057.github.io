@@ -36,6 +36,9 @@
 			.right {
 				color: green;
 			}
+			.footer {
+				margin-top: -50px;
+			}
 		</style>
 	</head>
 	
@@ -52,7 +55,11 @@
 		</div>
 
 		<script>
-			var images = ['assets/holo/amelia_watson_ame.png', 'assets/holo/ceres_fauna.png', 'assets/holo/fuwawa_abyssgard.png', 'assets/holo/hakos_baelz_bae.png', 'assets/holo/kiara_takanashi_kiwawa.png', 'assets/holo/koseki_bijou_biboo.png', 'assets/holo/mococo_abyssgard.png', 'assets/holo/nanashi_mumei.png', 'assets/holo/nerissa_ravencroft.png', 'assets/holo/ninomae_inanis_ina.png', 'assets/holo/ouro_kronii.png', 'assets/holo/shiori_novella.png', 'assets/holo/tsukumo_sana.png'];
+			var images = ['assets/holo/amelia.png', 'assets/holo/baelz.png', 'assets/holo/bijou.png', 'assets/holo/fauna.png', 'assets/holo/fuwawa.png', 'assets/holo/ina.png', 'assets/holo/irys.png', 'assets/holo/kiara.png', 'assets/holo/kronii.png', 'assets/holo/mococo.png', 'assets/holo/mumei.png', 'assets/holo/nerissa.png', 'assets/holo/sana.png', 'assets/holo/shiori.png'];
+			
+			var part0 = "?";
+			var part1 = "?";
+			var part2 = "?";
 			
 			function sample_three(list) {
 			
@@ -130,13 +137,19 @@
 						var image_name_list = sampled_three[0].split("/").pop().split(".")[0].split("_");
 						
 						if (image_name_list.includes(inputTextValue.toLowerCase())) {
-							PH2_RESULT_1.textContent = 'Correct! ('+seed_answer[0]+')';	
+							PH2_RESULT_1.textContent = 'Correct!';	
 							PH2_RESULT_1.classList.add('right');
 							PH2_RESULT_1.classList.remove('error');
+							
+							part0 = '<span style="color: green;">'+seed_answer[0]+'</span>';
+							footer.innerHTML = part0+part1+part2;
 						} else {
 							PH2_RESULT_1.textContent = 'Wrong!';
 							PH2_RESULT_1.classList.add('error');
 							PH2_RESULT_1.classList.remove('right');
+							
+							part0 = '?';
+							footer.innerHTML = part0+part1+part2;
 						}
 					});
 			
@@ -181,13 +194,19 @@
 						var image_name_list = sampled_three[1].split("/").pop().split(".")[0].split("_");
 						
 						if (image_name_list.includes(inputTextValue.toLowerCase())) {
-							PH2_RESULT_2.textContent = 'Correct! ('+seed_answer[1]+')';							
+							PH2_RESULT_2.textContent = 'Correct!';							
 							PH2_RESULT_2.classList.add('right');
 							PH2_RESULT_2.classList.remove('error');
+							
+							part1 = '<span style="color: green;">'+seed_answer[1]+'</span>';
+							footer.innerHTML = part0+part1+part2;
 						} else {
 							PH2_RESULT_2.textContent = 'Wrong!';
 							PH2_RESULT_2.classList.add('error');
 							PH2_RESULT_2.classList.remove('right');
+							
+							part1 = '?';
+							footer.innerHTML = part0+part1+part2;
 						}
 					});
 					
@@ -232,13 +251,19 @@
 						var image_name_list = sampled_three[2].split("/").pop().split(".")[0].split("_");
 						
 						if (image_name_list.includes(inputTextValue.toLowerCase())) {
-							PH2_RESULT_3.textContent = 'Correct! ('+seed_answer[2]+')';	
+							PH2_RESULT_3.textContent = 'Correct!';	
 							PH2_RESULT_3.classList.add('right');
 							PH2_RESULT_3.classList.remove('error');
+							
+							part2 = '<span style="color: green;">'+seed_answer[2]+'</span>';
+							footer.innerHTML = part0+part1+part2;
 						} else {
 							PH2_RESULT_3.textContent = 'Wrong!';
 							PH2_RESULT_3.classList.add('error');
 							PH2_RESULT_3.classList.remove('right');
+							
+							part2 = '?';
+							footer.innerHTML = part0+part1+part2;
 						}
 					});
 			
@@ -253,10 +278,14 @@
 					
 					var wrong_seed = document.createElement('p');
 					wrong_seed.textContent = 'Refresh the page if you think you typed the wrong seed.';
+					
+					var footer = document.createElement('p');
+					footer.classList.add('footer');
+					footer.innerHTML = part0+part1+part2;
+					
 					document.body.appendChild(wrong_seed);
 					document.body.appendChild(container_wrapper);
-					
-					
+					document.body.appendChild(footer);
 					
 				} else {
 					result.textContent = "Invalid input";
